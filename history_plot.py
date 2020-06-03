@@ -17,7 +17,8 @@ import matplotlib.pyplot as plt
 
 plot_dir = '../plots/'
 save_dir = '../models/'
-model_name = 'EF-UNet_256-64_sklw-bce'
+#model_name = 'EF-UNet_256-64_sklw-bce'
+model_name = 'EF-UNet_128-128_sklw-bce'
 history_name = model_name + '_history'
 
 history = pd.read_hdf(save_dir + history_name + ".h5", "history")
