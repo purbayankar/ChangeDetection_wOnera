@@ -96,8 +96,8 @@ model.save(save_dir + model_name + ".h5")
 print('Trained model saved @ %s ' % save_dir)
 
 # Save frozen graph
-frozen_graph = freeze.freeze_session(K.get_session(), output_names=[out.op.name for out in model.outputs])
-tf.train.write_graph(frozen_graph, frozen_dir, model_name + ".pbtxt", as_text=True)
-tf.train.write_graph(frozen_graph, frozen_dir, model_name + ".pb", as_text=False)
+#frozen_graph = freeze.freeze_session(K.get_session(), output_names=[out.op.name for out in model.outputs])
+#tf.train.write_graph(frozen_graph, frozen_dir, model_name + ".pbtxt", as_text=True)
+#tf.train.write_graph(frozen_graph, frozen_dir, model_name + ".pb", as_text=False)
 
-print('Frozen model saved @ %s ' % frozen_dir)
+#print('Frozen model saved @ %s ' % frozen_dir)
