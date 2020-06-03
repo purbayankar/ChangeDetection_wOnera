@@ -19,16 +19,17 @@ import matplotlib.pyplot as plt
 import random
 
 
-img_size = 256
+img_size = 128
 channels = 13
-stride = 256
+stride = 128
 classes = 1
 
 dataset_dir = '../OneraDataset_Images/'
 labels_dir = '../OneraDataset_TrainLabels/'
 
 save_dir = '../models/'
-model_name = 'EF_UNet_bce-256_ol64'
+#model_name = 'EF_UNet_bce-256_ol64'
+model_name = 'EF-UNet_128-128_sklw-bce'
 
 infres_dir = '../results/'
 history_name = model_name + '_history'
