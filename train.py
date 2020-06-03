@@ -15,7 +15,8 @@ import numpy as np
 from libtiff import TIFF
 import tensorflow as tf
 from keras.callbacks import EarlyStopping
-from keras import backend as K
+import tensorflow.python.keras.backend as K
+
 import pandas as pd
 import freeze
 import cd_models as cdm
