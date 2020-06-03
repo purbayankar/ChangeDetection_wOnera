@@ -24,9 +24,9 @@ import itertools
 
 
 batch_size = 32
-img_size = 256
+img_size = 128
 channels = 13
-stride = 256
+stride = 128
 classes = 1
 dataset_dir = '../OneraDataset_Images/'
 labels_dir = '../OneraDataset_TrainLabels/'
@@ -35,7 +35,7 @@ plot_dir = '../plots/'
 cm_dir = plot_dir + 'confusion_matrix/'
 roc_dir = plot_dir + 'roc/'
 score_dir = '../scores/'
-model_name = 'EF-UNet_256-64_sklw-bce'
+model_name = 'EF-UNet_128-128_sklw-bce'
 class_names = ['unchange', 'change']
 
 
