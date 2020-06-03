@@ -27,8 +27,8 @@ n_epochs = np.arange(1, n_epochs+1)
 
 val_loss = history['val_loss'].values
 train_loss = history['loss'].values
-val_acc = history['val_acc'].values
-train_acc = history['acc'].values
+val_acc = history['val_accuracy'].values
+train_acc = history['accuracy'].values
 
 fig = plt.figure()
 plt.plot(n_epochs, train_acc, '-b', label='Training')
