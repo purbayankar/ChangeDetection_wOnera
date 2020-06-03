@@ -10,7 +10,8 @@ Created on Fri Dec 13, 2019
 
 
 import tensorflow as tf
-from tensorflow.python.framework.graph_util import convert_variables_to_constants
+#from tensorflow.python.framework.graph_util import convert_variables_to_constants
+
 
 
 def freeze_session(session, keep_var_names=None, output_names=None, clear_devices=True):
@@ -23,5 +24,5 @@ def freeze_session(session, keep_var_names=None, output_names=None, clear_device
         if clear_devices:
             for node in input_graph_def.node:
                 node.device = ""
-        frozen_graph = convert_variables_to_constants(session, input_graph_def, output_names, freeze_var_names)
+        frozen_graph = tf.compat.v1.graph_util.convert_variables_to_constants(session, input_graph_def, output_names, freeze_var_names)
         return frozen_graph
