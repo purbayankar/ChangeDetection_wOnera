@@ -514,10 +514,10 @@ def weighted_bce_dice_loss(y_true,y_pred):
 
 
 def UNetPP_ConvUnit(input_tensor, stage, nb_filter, kernel_size=3, mode='None'):   
-    x = FastDeconv(nb_filter, (kernel_size, kernel_size), activation='selu', name='conv' + stage + '_1', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(input_tensor)
+    x = FastDeconv2d(nb_filter, (kernel_size, kernel_size), activation='selu', name='conv' + stage + '_1', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(input_tensor)
     x0 = x
     x = BatchNormalization(name='bn' + stage + '_1')(x)
-    x = FastDeconv(nb_filter, (kernel_size, kernel_size), activation='selu', name='conv' + stage + '_2', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(x)
+    x = FastDeconv2d(nb_filter, (kernel_size, kernel_size), activation='selu', name='conv' + stage + '_2', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(x)
     x = BatchNormalization(name='bn' + stage + '_2')(x)
     if mode == 'residual':
         x = Add(name='resi' + stage)([x, x0])
@@ -585,13 +585,13 @@ def EF_UNetPP(input_shape, classes=1, deep_supervision=False):
     conv1_5 = concatenate([up1_5, conv1_1, conv1_2, conv1_3, conv1_4], name='merge15', axis=bn_axis)
     conv1_5 = UNetPP_ConvUnit(conv1_5, stage='15', nb_filter=nb_filter[0], mode=mode)
 
-    nestnet_output_1 = FastDeconv(classes, (1, 1), activation='sigmoid', name='output_1', kernel_initializer='he_normal',
+    nestnet_output_1 = FastDeconv2d(classes, (1, 1), activation='sigmoid', name='output_1', kernel_initializer='he_normal',
                             padding='same', kernel_regularizer=l2(1e-4))(conv1_2)
-    nestnet_output_2 = FastDeconv(classes, (1, 1), activation='sigmoid', name='output_2', kernel_initializer='he_normal',
+    nestnet_output_2 = FastDeconv2d(classes, (1, 1), activation='sigmoid', name='output_2', kernel_initializer='he_normal',
                             padding='same', kernel_regularizer=l2(1e-4))(conv1_3)
-    nestnet_output_3 = FastDeconv(classes, (1, 1), activation='sigmoid', name='output_3', kernel_initializer='he_normal',
+    nestnet_output_3 = FastDeconv2d(classes, (1, 1), activation='sigmoid', name='output_3', kernel_initializer='he_normal',
                             padding='same', kernel_regularizer=l2(1e-4))(conv1_4)
-    nestnet_output_4 = FastDeconv(classes, (1, 1), activation='sigmoid', name='output_4', kernel_initializer='he_normal',
+    nestnet_output_4 = FastDeconv2d(classes, (1, 1), activation='sigmoid', name='output_4', kernel_initializer='he_normal',
                             padding='same', kernel_regularizer=l2(1e-4))(conv1_5)
 
     conv_fuse = concatenate([conv1_2, conv1_3, conv1_4, conv1_5], name='merge_fuse', axis=bn_axis)
@@ -614,10 +614,10 @@ def EF_UNetPP(input_shape, classes=1, deep_supervision=False):
 
 
 def UNet_ConvUnit(input_tensor, stage, nb_filter, kernel_size=3, mode='None'):   
-    x = FastDeconv(nb_filter, (kernel_size, kernel_size), activation='selu', name='conv' + stage + '_1', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(input_tensor)
+    x = FastDeconv2d(nb_filter, (kernel_size, kernel_size), activation='selu', name='conv' + stage + '_1', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(input_tensor)
 #    x0 = x
 #    x = BatchNormalization(name='bn' + stage + '_1')(x)
-    x = FastDeconv(nb_filter, (kernel_size, kernel_size), activation='selu', name='conv' + stage + '_2', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(x)
+    x = FastDeconv2d(nb_filter, (kernel_size, kernel_size), activation='selu', name='conv' + stage + '_2', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(x)
     x = BatchNormalization(name='bn' + stage)(x)
 #    x = BatchNormalization(name='bn' + stage + '_2')(x)
     if mode == 'residual':
@@ -666,7 +666,7 @@ def EF_UNet(input_shape, classes=1, loss='bce'):
     conv9 = UNet_ConvUnit(merge4, stage='9', nb_filter=nb_filter[0], mode=mode)
 
     # Output layer of the U-Net with a softmax activation
-    output = FastDeconv(classes, (1, 1), activation='sigmoid', name='output', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(conv9)
+    output = FastDeconv2d(classes, (1, 1), activation='sigmoid', name='output', kernel_initializer='he_normal', padding='same', kernel_regularizer=l2(1e-4))(conv9)
 
     model = Model(input=inputs, output=output)
 
